@@ -51,7 +51,7 @@ describe('whatBump', () => {
 	it('should return major', () => {
 		expect(whatBump([], [
 			{type: 'test', notes: ['BREAKING CHANGE: test']},
-			{type: 'chore'},
+			{type: 'chore', notes: []},
 			{type: 'style', notes: []},
 			{type: 'feat', notes: []},
 		])).toBe('major');
@@ -59,7 +59,7 @@ describe('whatBump', () => {
 
 	it('should return minor', () => {
 		expect(whatBump(['feat'], [
-			{type: 'chore'},
+			{type: 'chore', notes: []},
 			{type: 'style', notes: []},
 			{type: 'feat', notes: []},
 		])).toBe('minor');
@@ -68,7 +68,7 @@ describe('whatBump', () => {
 	it('should return patch', () => {
 		expect(whatBump([], [])).toBe('patch');
 		expect(whatBump(['feat'], [
-			{type: 'chore'},
+			{type: 'chore', notes: []},
 			{type: 'style', notes: []},
 		])).toBe('patch');
 	});
