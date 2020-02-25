@@ -17,9 +17,9 @@ Version helper for GitHub Actions.
 <details>
 <summary>Details</summary>
 
-- [Setup](#setup)
-  - [yarn](#yarn)
-  - [npm](#npm)
+- [Usage](#usage)
+  - [Commit](#commit)
+  - [Version](#version)
 - [Author](#author)
 
 </details>
