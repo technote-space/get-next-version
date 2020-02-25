@@ -1,1 +1,4 @@
-export const add = (num1: number, num2: number): number => num1 + num2;
+import * as Commit from './utils/commit';
+import * as Version from './utils/version';
+
+export { Commit, Version };
