@@ -1,7 +1,8 @@
 import { Context } from '@actions/github/lib/context';
 import { Octokit } from '@octokit/rest';
-import { Utils, ApiHelper } from '@technote-space/github-action-helper';
+import { Utils, ApiHelper, Logger } from '@technote-space/github-action-helper';
 import { getCommits } from './commit';
+import { log } from './misc';
 import { Commit } from '../types';
 import { VERSION_BUMP } from '../constant';
 
@@ -21,7 +22,20 @@ export const whatBump = (minorUpdateCommitTypes: Array<string>, commits: Array<P
 
 export const getNextVersionLevel = (minorUpdateCommitTypes: Array<string>, commits: Array<Pick<Commit, 'notes' | 'type'>>): number => VERSION_BUMP[whatBump(minorUpdateCommitTypes, commits)];
 
-export const getNextVersion = async(minorUpdateCommitTypes: Array<string>, excludeMessages: Array<string>, breakingChangeNotes: Array<string>, helper: ApiHelper, octokit: Octokit, context: Context): Promise<string> => Utils.generateNewVersion(
-	await getCurrentVersion(helper),
-	getNextVersionLevel(minorUpdateCommitTypes, await getCommits(minorUpdateCommitTypes, excludeMessages, breakingChangeNotes, octokit, context)),
-);
+export const getNextVersion = async(minorUpdateCommitTypes: Array<string>, excludeMessages: Array<string>, breakingChangeNotes: Array<string>, helper: ApiHelper, octokit: Octokit, context: Context, logger?: Logger): Promise<string> => {
+	const commits = await getCommits(minorUpdateCommitTypes, excludeMessages, breakingChangeNotes, octokit, context);
+	log(logger => logger.startProcess('Target commits:'), logger);
+	log(() => console.log(commits.map(item => ({type: item.type, message: item.message, sha: item.sha}))), logger);
+	log(logger => logger.endProcess(), logger);
+
+	const current = await getCurrentVersion(helper);
+	log(logger => logger.info('Current version: %s', current), logger);
+
+	const next = Utils.generateNewVersion(
+		current,
+		getNextVersionLevel(minorUpdateCommitTypes, commits),
+	);
+	log(logger => logger.info('Next version: %s', next), logger);
+
+	return next;
+};

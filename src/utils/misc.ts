@@ -1,3 +1,4 @@
+import { Logger } from '@technote-space/github-action-helper';
 import { CommitMessage } from '../types';
 import { SEMANTIC_MESSAGE_PATTERN } from '../constant';
 
@@ -52,4 +53,10 @@ export const parseCommitMessage = (message: string, types: Array<string>, exclud
 		children,
 		notes,
 	};
+};
+
+export const log = (log: (logger: Logger) => void, logger?: Logger): void => {
+	if (logger) {
+		log(logger);
+	}
 };
