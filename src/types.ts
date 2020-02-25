@@ -7,6 +7,6 @@ export type CommitMessage = Readonly<{
 	notes?: Array<string>;
 }>
 
-export type Commit = CommitMessage & Readonly<{
+export type Commit = Required<CommitMessage> & Readonly<{
 	sha: string;
 }>
