@@ -16,14 +16,16 @@ export const parseLine = (message: string): CommitMessage | undefined => {
 	};
 };
 
-const isValidMessage = (type: string, message: string, types: Array<string>, excludeMessages: Array<string>): boolean => types.includes(type) && !excludeMessages.includes(message);
+export const normalize = (messages: Array<string>): Array<string> => messages.map(item => item.toLowerCase());
+
+export const isValidMessage = (type: string, message: string, types: Array<string>, excludeMessages: Array<string>): boolean => types.includes(type) && !excludeMessages.includes(message.toLowerCase());
 
 export const parseCommitMessage = (message: string, types: Array<string>, excludeMessages: Array<string>, breakingChangeNotes: Array<string>): CommitMessage | undefined => {
-	const normalizedExcludeMessages = excludeMessages.map(item => item.toLowerCase());
+	const normalizedExcludeMessages = normalize(excludeMessages);
 	const messages                  = message.trim().split(/\r?\n|\r/);
 	const trim                      = messages[0].trim();
 	const matches                   = trim.match(SEMANTIC_MESSAGE_PATTERN);
-	if (!matches || !isValidMessage(matches[1], matches[3].toLowerCase(), types, normalizedExcludeMessages)) {
+	if (!matches || !isValidMessage(matches[1], matches[3], types, normalizedExcludeMessages)) {
 		return undefined;
 	}
 
