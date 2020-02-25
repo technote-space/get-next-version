@@ -18,6 +18,6 @@ export const getCommits = async(types: Array<string>, excludeMessages: Array<str
 		.filter(item => item.message)
 		.map(item => ({
 			sha: item.commit.sha,
-			...(item.message as CommitMessage),
+			...(item.message as Required<CommitMessage>),
 		}));
 
