@@ -8,7 +8,7 @@
 
 *Read this in other languages: [English](README.md), [日本語](README.ja.md).*
 
-Version helper for GitHub Actions.
+GitHub Actions 用のバージョンヘルパー
 
 ## Table of Contents
 
@@ -25,13 +25,13 @@ Version helper for GitHub Actions.
 </details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Usage
-1. Install
+## 使用方法
+1. インストール
    * npm  
    `npm i @technote-space/github-action-version-helper`
    * yarn  
    `yarn add @technote-space/github-action-version-helper`
-1. Use
+1. 使用
 ```typescript
 import { Commit, Version } from '@technote-space/github-action-version-helper';
 ```
@@ -48,7 +48,7 @@ const breakingChangeNotes = ['BREAKING CHANGE'];
 const commits = await Commit.getCommits(types, excludeMessages, breakingChangeNotes, octokit, context);
 
 /**
-e.g. __tests__/fixtures/commit.list2.json
+例：__tests__/fixtures/commit.list2.json
 [
 	{
 		'type': 'chore',
@@ -115,7 +115,7 @@ const breakingChangeNotes = ['BREAKING CHANGE'];
 const version = await Version.getNextVersion(minorUpdateCommitTypes, excludeMessages, breakingChangeNotes, helper, octokit, context);
 
 /**
-e.g. __tests__/fixtures/repos.git.matching-refs.json, __tests__/fixtures/commit.list3.json
+例：__tests__/fixtures/repos.git.matching-refs.json, __tests__/fixtures/commit.list3.json
 v2.1.0
 **/
 ```
