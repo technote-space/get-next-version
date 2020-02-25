@@ -4,7 +4,7 @@ import { parseCommitMessage } from './misc';
 import { Commit, CommitMessage } from '../types';
 import { MERGE_MESSAGE_PATTERN } from '../constant';
 
-export const listCommits = async(octokit: Octokit, context: Context): Promise<Array<Octokit.PullsListCommitsResponseItem>> => octokit.paginate(
+const listCommits = async(octokit: Octokit, context: Context): Promise<Array<Octokit.PullsListCommitsResponseItem>> => octokit.paginate(
 	octokit.pulls.listCommits.endpoint.merge({
 		...context.repo,
 		'pull_number': context.payload.number,
