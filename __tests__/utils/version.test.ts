@@ -7,6 +7,9 @@ import {
 	disableNetConnect,
 	getApiFixture,
 	getOctokit,
+	spyOnStdout,
+	stdoutCalledWith,
+	getLogStdout,
 } from '@technote-space/github-action-test-helper';
 import { getCurrentVersion, whatBump, getNextVersionLevel, getNextVersion } from '../../src/utils/version';
 
@@ -144,6 +147,8 @@ describe('getNextVersion', () => {
 	});
 
 	it('should get next version 3', async() => {
+		const mockStdout = spyOnStdout();
+
 		nock('https://api.github.com')
 			.persist()
 			.get('/repos/hello/world/git/matching-refs/tags/')
@@ -152,5 +157,34 @@ describe('getNextVersion', () => {
 			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list3'));
 
 		expect(await getNextVersion(['feat'], [], ['BREAKING CHANGE'], helper, octokit, context)).toBe('v2.1.0');
+
+		stdoutCalledWith(mockStdout, []);
+	});
+
+	it('should get next version with stdout', async() => {
+		const mockStdout = spyOnStdout();
+
+		nock('https://api.github.com')
+			.persist()
+			.get('/repos/hello/world/git/matching-refs/tags/')
+			.reply(200, () => getApiFixture(fixtureRootDir, 'repos.git.matching-refs'))
+			.get('/repos/hello/world/pulls/123/commits')
+			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list3'));
+
+		expect(await getNextVersion(['feat'], [], ['BREAKING CHANGE'], helper, octokit, context, logger)).toBe('v2.1.0');
+
+		stdoutCalledWith(mockStdout, [
+			'::group::Target commits:',
+			getLogStdout([
+				{
+					'type': 'feat',
+					'message': 'add new feature3',
+					'sha': '4dcb09b5b57875f334f61aebed695e2e4193db5e',
+				},
+			]),
+			'::endgroup::',
+			'> Current version: v2.0.0',
+			'> Next version: v2.1.0',
+		]);
 	});
 });
