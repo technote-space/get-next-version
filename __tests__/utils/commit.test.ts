@@ -7,7 +7,7 @@ import {
 	getApiFixture,
 	getOctokit,
 } from '@technote-space/github-action-test-helper';
-import { listCommits, getCommits } from '../../src/utils/commit';
+import { getCommits } from '../../src/utils/commit';
 
 const fixtureRootDir = resolve(__dirname, '..', 'fixtures');
 const octokit        = getOctokit();
@@ -20,24 +20,6 @@ const context        = generateContext({owner: 'hello', repo: 'world', ref: 'ref
 			},
 		},
 	},
-});
-
-describe('listCommits', () => {
-	disableNetConnect(nock);
-
-	it('should list commits', async() => {
-		nock('https://api.github.com')
-			.persist()
-			.get('/repos/hello/world/pulls/123/commits')
-			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list1'));
-
-		const commits = await listCommits(octokit, context);
-
-		expect(commits).toHaveLength(1);
-		expect(commits[0]).toHaveProperty('sha');
-		expect(commits[0]).toHaveProperty('commit');
-		expect(commits[0].commit).toHaveProperty('message');
-	});
 });
 
 describe('getCommits', () => {
