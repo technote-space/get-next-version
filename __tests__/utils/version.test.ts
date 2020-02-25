@@ -107,7 +107,7 @@ describe('getNextVersion', () => {
 			.get('/repos/hello/world/pulls/123/commits')
 			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list1'));
 
-		expect(await getNextVersion([], [], helper, octokit, context)).toBe('v0.0.1');
+		expect(await getNextVersion([], [], [], helper, octokit, context)).toBe('v0.0.1');
 	});
 
 	it('should get next version 1-2', async() => {
@@ -118,7 +118,18 @@ describe('getNextVersion', () => {
 			.get('/repos/hello/world/pulls/123/commits')
 			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list1'));
 
-		expect(await getNextVersion(['fix'], [], helper, octokit, context)).toBe('v0.1.0');
+		expect(await getNextVersion(['fix'], [], [], helper, octokit, context)).toBe('v0.1.0');
+	});
+
+	it('should get next version 1-3', async() => {
+		nock('https://api.github.com')
+			.persist()
+			.get('/repos/hello/world/git/matching-refs/tags/')
+			.reply(200, () => [])
+			.get('/repos/hello/world/pulls/123/commits')
+			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list1'));
+
+		expect(await getNextVersion(['fix'], ['all the bugs'], [], helper, octokit, context)).toBe('v0.0.1');
 	});
 
 	it('should get next version 2', async() => {
@@ -129,7 +140,7 @@ describe('getNextVersion', () => {
 			.get('/repos/hello/world/pulls/123/commits')
 			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list2'));
 
-		expect(await getNextVersion(['feat'], ['BREAKING CHANGE'], helper, octokit, context)).toBe('v3.0.0');
+		expect(await getNextVersion(['feat'], [], ['BREAKING CHANGE'], helper, octokit, context)).toBe('v3.0.0');
 	});
 
 	it('should get next version 3', async() => {
@@ -140,6 +151,6 @@ describe('getNextVersion', () => {
 			.get('/repos/hello/world/pulls/123/commits')
 			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list3'));
 
-		expect(await getNextVersion(['feat'], ['BREAKING CHANGE'], helper, octokit, context)).toBe('v2.1.0');
+		expect(await getNextVersion(['feat'], [], ['BREAKING CHANGE'], helper, octokit, context)).toBe('v2.1.0');
 	});
 });

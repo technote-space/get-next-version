@@ -21,7 +21,7 @@ export const whatBump = (minorUpdateCommitTypes: Array<string>, commits: Array<P
 
 export const getNextVersionLevel = (minorUpdateCommitTypes: Array<string>, commits: Array<Pick<Commit, 'notes' | 'type'>>): number => VERSION_BUMP[whatBump(minorUpdateCommitTypes, commits)];
 
-export const getNextVersion = async(minorUpdateCommitTypes: Array<string>, breakingChangeNotes: Array<string>, helper: ApiHelper, octokit: Octokit, context: Context): Promise<string> => Utils.generateNewVersion(
+export const getNextVersion = async(minorUpdateCommitTypes: Array<string>, excludeMessages: Array<string>, breakingChangeNotes: Array<string>, helper: ApiHelper, octokit: Octokit, context: Context): Promise<string> => Utils.generateNewVersion(
 	await getCurrentVersion(helper),
-	getNextVersionLevel(minorUpdateCommitTypes, await getCommits(minorUpdateCommitTypes, [], breakingChangeNotes, octokit, context)),
+	getNextVersionLevel(minorUpdateCommitTypes, await getCommits(minorUpdateCommitTypes, excludeMessages, breakingChangeNotes, octokit, context)),
 );
