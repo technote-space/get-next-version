@@ -3,12 +3,13 @@ export type CommitMessage = Readonly<{
 	message?: string;
 	normalized?: string;
 	original: string;
-	children?: Array<CommitMessage>;
+	children?: Array<ChildCommitMessage>;
 	notes?: Array<string>;
 }>
 
-export type MainCommitMessage = CommitMessage & Required<Pick<CommitMessage, 'children' | 'notes'>>;
+export type ParentCommitMessage = CommitMessage & Required<Pick<CommitMessage, 'children' | 'notes'>>;
+export type ChildCommitMessage = Required<Omit<CommitMessage, 'children' | 'notes'>>;
 
-export type Commit = MainCommitMessage & Readonly<{
+export type Commit = ParentCommitMessage & Readonly<{
 	sha: string;
 }>
