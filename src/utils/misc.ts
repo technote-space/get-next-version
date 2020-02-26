@@ -2,7 +2,9 @@ import { Logger } from '@technote-space/github-action-helper';
 import { CommitMessage } from '../types';
 import { SEMANTIC_MESSAGE_PATTERN } from '../constant';
 
-export const parseLine = (message: string): CommitMessage | undefined => {
+type Line = Required<Pick<CommitMessage, 'type' | 'message' | 'normalized' | 'original'>>;
+
+export const parseLine = (message: string): Line | undefined => {
 	const trim    = message.trim();
 	const matches = trim.match(SEMANTIC_MESSAGE_PATTERN);
 	if (!matches) {
@@ -21,12 +23,12 @@ export const normalize = (messages: Array<string>): Array<string> => messages.ma
 
 export const isValidMessage = (type: string, message: string, types: Array<string>, excludeMessages: Array<string>): boolean => types.includes(type) && !excludeMessages.includes(message.toLowerCase());
 
-export const parseCommitMessage = (message: string, types: Array<string>, excludeMessages: Array<string>, breakingChangeNotes: Array<string>): Required<CommitMessage> | undefined => {
+export const parseCommitMessage = (message: string, types: Array<string>, excludeMessages: Array<string>, breakingChangeNotes: Array<string>): CommitMessage | undefined => {
 	const normalizedExcludeMessages = normalize(excludeMessages);
 	const messages                  = message.trim().split(/\r?\n|\r/);
 	const trim                      = messages[0].trim();
 	const matches                   = trim.match(SEMANTIC_MESSAGE_PATTERN);
-	if (!matches || !isValidMessage(matches[1], matches[3], types, normalizedExcludeMessages)) {
+	if (!matches) {
 		return undefined;
 	}
 
@@ -36,7 +38,7 @@ export const parseCommitMessage = (message: string, types: Array<string>, exclud
 		.slice(1)    // eslint-disable-line no-magic-numbers
 		.map(message => parseLine(message))
 		.filter(item => item)
-		.map(item => item as CommitMessage)
+		.map(item => item as Line)
 		.forEach(item => {
 			if (breakingChangeNotes.length && breakingChangeNotes.includes(item.type)) {
 				notes.push(item.original);
@@ -44,6 +46,18 @@ export const parseCommitMessage = (message: string, types: Array<string>, exclud
 				children.push(item);
 			}
 		});
+
+	if (!isValidMessage(matches[1], matches[3], types, normalizedExcludeMessages)) {
+		if (children.length || notes.length) {
+			return {
+				children,
+				notes,
+				original: trim,
+			};
+		}
+
+		return undefined;
+	}
 
 	return {
 		type: matches[1],

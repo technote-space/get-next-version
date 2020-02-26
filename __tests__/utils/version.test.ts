@@ -53,8 +53,8 @@ describe('getCurrentVersion', () => {
 describe('whatBump', () => {
 	it('should return major', () => {
 		expect(whatBump([], [
-			{type: 'test', notes: ['BREAKING CHANGE: test']},
-			{type: 'chore', notes: []},
+			{notes: ['BREAKING CHANGE: test']},
+			{type: 'chore'},
 			{type: 'style', notes: []},
 			{type: 'feat', notes: []},
 		])).toBe('major');
@@ -62,7 +62,7 @@ describe('whatBump', () => {
 
 	it('should return minor', () => {
 		expect(whatBump(['feat'], [
-			{type: 'chore', notes: []},
+			{type: 'chore'},
 			{type: 'style', notes: []},
 			{type: 'feat', notes: []},
 		])).toBe('minor');
@@ -143,7 +143,7 @@ describe('getNextVersion', () => {
 			.get('/repos/hello/world/pulls/123/commits')
 			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list2'));
 
-		expect(await getNextVersion(['feat'], [], ['BREAKING CHANGE'], helper, octokit, context)).toBe('v3.0.0');
+		expect(await getNextVersion([], [], ['BREAKING CHANGE'], helper, octokit, context)).toBe('v3.0.0');
 	});
 
 	it('should get next version 3', async() => {
