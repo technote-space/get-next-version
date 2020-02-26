@@ -1,5 +1,5 @@
 import { Logger } from '@technote-space/github-action-helper';
-import { CommitMessage } from '../types';
+import { CommitMessage, MainCommitMessage } from '../types';
 import { SEMANTIC_MESSAGE_PATTERN } from '../constant';
 
 type Line = Required<Pick<CommitMessage, 'type' | 'message' | 'normalized' | 'original'>>;
@@ -23,7 +23,7 @@ export const normalize = (messages: Array<string>): Array<string> => messages.ma
 
 export const isValidMessage = (type: string, message: string, types: Array<string>, excludeMessages: Array<string>): boolean => types.includes(type) && !excludeMessages.includes(message.toLowerCase());
 
-export const parseCommitMessage = (message: string, types: Array<string>, excludeMessages: Array<string>, breakingChangeNotes: Array<string>): CommitMessage | undefined => {
+export const parseCommitMessage = (message: string, types: Array<string>, excludeMessages: Array<string>, breakingChangeNotes: Array<string>): MainCommitMessage | undefined => {
 	const normalizedExcludeMessages = normalize(excludeMessages);
 	const messages                  = message.trim().split(/\r?\n|\r/);
 	const trim                      = messages[0].trim();
