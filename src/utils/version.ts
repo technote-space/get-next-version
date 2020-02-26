@@ -9,7 +9,7 @@ import { VERSION_BUMP } from '../constant';
 export const getCurrentVersion = async(helper: ApiHelper): Promise<string> => helper.getLastTag();
 
 export const whatBump = (minorUpdateCommitTypes: Array<string>, commits: Array<Pick<Commit, 'notes' | 'type'>>): keyof typeof VERSION_BUMP => {
-	if (commits.filter(commit => commit.notes?.length).length) {
+	if (commits.filter(commit => commit.notes.length).length) {
 		return 'major';
 	}
 

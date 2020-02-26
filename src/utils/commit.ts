@@ -1,7 +1,7 @@
 import { Context } from '@actions/github/lib/context';
 import { Octokit } from '@octokit/rest';
 import { parseCommitMessage } from './misc';
-import { Commit, CommitMessage } from '../types';
+import { Commit, MainCommitMessage } from '../types';
 import { MERGE_MESSAGE_PATTERN } from '../constant';
 
 const listCommits = async(octokit: Octokit, context: Context): Promise<Array<Octokit.PullsListCommitsResponseItem>> => octokit.paginate(
@@ -18,6 +18,6 @@ export const getCommits = async(types: Array<string>, excludeMessages: Array<str
 		.filter(item => item.message)
 		.map(item => ({
 			sha: item.commit.sha,
-			...(item.message as Required<CommitMessage>),
+			...(item.message as MainCommitMessage),
 		}));
 
