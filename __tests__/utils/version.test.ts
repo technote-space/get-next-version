@@ -169,22 +169,29 @@ describe('getNextVersion', () => {
 			.get('/repos/hello/world/git/matching-refs/tags/')
 			.reply(200, () => getApiFixture(fixtureRootDir, 'repos.git.matching-refs'))
 			.get('/repos/hello/world/pulls/123/commits')
-			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list3'));
+			.reply(200, () => getApiFixture(fixtureRootDir, 'commit.list2'));
 
-		expect(await getNextVersion(['feat'], [], ['BREAKING CHANGE'], helper, octokit, context, logger)).toBe('v2.1.0');
+		expect(await getNextVersion(['style'], [], ['BREAKING CHANGE'], helper, octokit, context, logger)).toBe('v3.0.0');
 
 		stdoutCalledWith(mockStdout, [
 			'::group::Target commits:',
 			getLogStdout([
 				{
-					'type': 'feat',
-					'message': 'add new feature3',
-					'sha': '4dcb09b5b57875f334f61aebed695e2e4193db5e',
+					'notes': [
+						'BREAKING CHANGE: changed',
+					],
+					'sha': '3dcb09b5b57875f334f61aebed695e2e4193db5e',
+				},
+				{
+					'type': 'style',
+					'message': 'tweaks',
+					'notes': [],
+					'sha': '7dcb09b5b57875f334f61aebed695e2e4193db5e',
 				},
 			]),
 			'::endgroup::',
 			'> Current version: v2.0.0',
-			'> Next version: v2.1.0',
+			'> Next version: v3.0.0',
 		]);
 	});
 });

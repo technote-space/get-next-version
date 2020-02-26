@@ -25,7 +25,7 @@ export const getNextVersionLevel = (minorUpdateCommitTypes: Array<string>, commi
 export const getNextVersion = async(minorUpdateCommitTypes: Array<string>, excludeMessages: Array<string>, breakingChangeNotes: Array<string>, helper: ApiHelper, octokit: Octokit, context: Context, logger?: Logger): Promise<string> => {
 	const commits = await getCommits(minorUpdateCommitTypes, excludeMessages, breakingChangeNotes, octokit, context);
 	log(logger => logger.startProcess('Target commits:'), logger);
-	log(() => console.log(commits.map(item => ({type: item.type, message: item.message, sha: item.sha}))), logger);
+	log(() => console.log(commits.map(item => ({type: item.type, message: item.message, notes: item.notes, sha: item.sha}))), logger);
 	log(logger => logger.endProcess(), logger);
 
 	const current = await getCurrentVersion(helper);
