@@ -127,6 +127,22 @@ describe('getCommits', () => {
 			},
 			{
 				'type': 'chore',
+				'message': 'trigger workflow',
+				'normalized': 'chore: trigger workflow',
+				'original': 'chore: trigger workflow',
+				'children': [
+					{
+						'type': 'feat',
+						'message': 'test',
+						'normalized': 'feat: test',
+						'original': 'feat: test',
+					},
+				],
+				'notes': [],
+				'sha': '8dcb09b5b57875f334f61aebed695e2e4193db5e',
+			},
+			{
+				'type': 'chore',
 				'message': 'tweaks',
 				'normalized': 'chore: tweaks',
 				'original': 'chore: tweaks',
