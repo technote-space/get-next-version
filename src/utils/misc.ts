@@ -45,15 +45,7 @@ export const parseCommitMessage = (message: string, types: Array<string>, exclud
 			}
 		});
 
-	if (!isValidMessage(matches[1], matches[3], types, normalizedExcludeMessages)) {
-		if (children.length || notes.length) {
-			return {
-				children,
-				notes,
-				original: trim,
-			};
-		}
-
+	if (!isValidMessage(matches[1], matches[3], types, normalizedExcludeMessages) && (!children.length && !notes.length)) {
 		return undefined;
 	}
 
