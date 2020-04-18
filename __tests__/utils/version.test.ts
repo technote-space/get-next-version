@@ -177,6 +177,8 @@ describe('getNextVersion', () => {
 			'::group::Target commits:',
 			getLogStdout([
 				{
+					'type': 'feat',
+					'message': 'add new features',
 					'notes': [
 						'BREAKING CHANGE: changed',
 					],
