@@ -1,10 +1,11 @@
 import { Context } from '@actions/github/lib/context';
-import { Octokit } from '@octokit/rest';
+import { Octokit } from '@technote-space/github-action-helper/dist/types';
+import { PullsListCommitsResponseData } from '@octokit/types/dist-types/generated/Endpoints';
 import { parseCommitMessage } from './misc';
 import { Commit, ParentCommitMessage } from '../types';
 import { MERGE_MESSAGE_PATTERN } from '../constant';
 
-const listCommits = async(octokit: Octokit, context: Context): Promise<Array<Octokit.PullsListCommitsResponseItem>> => octokit.paginate(
+const listCommits = async(octokit: Octokit, context: Context): Promise<PullsListCommitsResponseData> => octokit.paginate(
   octokit.pulls.listCommits.endpoint.merge({
     ...context.repo,
     'pull_number': context.payload.number,
