@@ -3,7 +3,7 @@
 export const SEMANTIC_MESSAGE_PATTERN = /^(.+?)!?\s*(\(.+?\)\s*)?:\s*(.+?)\s*$/;
 export const MERGE_MESSAGE_PATTERN    = /^Merge pull request #\d+ /;
 export const VERSION_BUMP             = {
-	'major': 0,
-	'minor': 1,
-	'patch': 2,
+  'major': 0,
+  'minor': 1,
+  'patch': 2,
 } as const;
