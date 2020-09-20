@@ -1,4 +1,4 @@
-import { Logger } from '@technote-space/github-action-helper';
+import { Logger } from '@technote-space/github-action-log-helper';
 import { ParentCommitMessage, ChildCommitMessage } from '../types';
 import { SEMANTIC_MESSAGE_PATTERN } from '../constant';
 
