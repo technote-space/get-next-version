@@ -1,5 +1,6 @@
 import { Context } from '@actions/github/lib/context';
-import { Utils, ApiHelper, Logger } from '@technote-space/github-action-helper';
+import { Utils, ApiHelper } from '@technote-space/github-action-helper';
+import { Logger } from '@technote-space/github-action-log-helper';
 import { Octokit } from '@technote-space/github-action-helper/dist/types';
 import { getCommits } from './commit';
 import { log } from './misc';
