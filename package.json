@@ -1,30 +1,38 @@
 {
   "name": "@technote-space/github-action-version-helper",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Version helper for GitHub Actions.",
-  "author": {
-    "name": "Technote",
-    "email": "technote.space@gmail.com",
-    "url": "https://technote.space"
-  },
-  "license": "MIT",
   "keywords": [
     "github",
     "github actions"
   ],
   "homepage": "https://github.com/technote-space/github-action-version-helper",
+  "bugs": {
+    "url": "https://github.com/technote-space/github-action-version-helper/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/technote-space/github-action-version-helper.git"
   },
-  "bugs": {
-    "url": "https://github.com/technote-space/github-action-version-helper/issues"
+  "license": "MIT",
+  "author": {
+    "name": "Technote",
+    "email": "technote.space@gmail.com",
+    "url": "https://technote.space"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "scripts": {
+    "build": "tsc",
+    "cover": "jest --coverage",
+    "lint": "eslint 'src/**/*.ts' '__tests__/**/*.ts' --cache",
+    "lint:fix": "eslint --fix 'src/**/*.ts' '__tests__/**/*.ts'",
+    "test": "yarn lint && yarn cover",
+    "update": "npx npm-check-updates -u && yarn install && yarn upgrade && yarn audit"
+  },
   "dependencies": {
     "@actions/github": "^4.0.0",
     "@technote-space/github-action-helper": "^4.0.4",
@@ -50,13 +58,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "scripts": {
-    "build": "tsc",
-    "test": "yarn lint && yarn cover",
-    "lint": "eslint 'src/**/*.ts' '__tests__/**/*.ts' --cache",
-    "lint:fix": "eslint --fix 'src/**/*.ts' '__tests__/**/*.ts'",
-    "cover": "jest --coverage",
-    "update": "npx npm-check-updates -u && yarn install && yarn upgrade && yarn audit"
   }
 }
