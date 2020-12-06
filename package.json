@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@actions/github": "^4.0.0",
+    "@octokit/openapi-types": "^2.0.0",
     "@technote-space/github-action-helper": "^4.4.2",
     "@technote-space/github-action-log-helper": "^0.1.9"
   },

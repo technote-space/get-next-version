@@ -1,15 +1,21 @@
 import { Context } from '@actions/github/lib/context';
 import { Octokit } from '@technote-space/github-action-helper/dist/types';
-import { PullsListCommitsResponseData } from '@octokit/types/dist-types/generated/Endpoints';
+import { ensureNotNull } from '@technote-space/github-action-helper/dist/utils';
+import { PaginateInterface } from '@octokit/plugin-paginate-rest';
+import { RestEndpointMethods } from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/method-types';
+import { components } from '@octokit/openapi-types';
 import { parseCommitMessage } from './misc';
 import { Commit, ParentCommitMessage } from '../types';
 import { MERGE_MESSAGE_PATTERN } from '../constant';
 
-const listCommits = async(octokit: Octokit, context: Context): Promise<PullsListCommitsResponseData> => octokit.paginate(
-  octokit.pulls.listCommits.endpoint.merge({
+type PullsListCommitsResponseData = components['schemas']['commit'];
+
+const listCommits = async(octokit: Octokit, context: Context): Promise<Array<PullsListCommitsResponseData>> => (octokit.paginate as PaginateInterface)(
+  (octokit as RestEndpointMethods).pulls.listCommits,
+  {
     ...context.repo,
     'pull_number': context.payload.number,
-  }),
+  },
 );
 
 export const getCommits = async(types: Array<string>, excludeMessages: Array<string>, breakingChangeNotes: Array<string>, octokit: Octokit, context: Context): Promise<Array<Commit>> =>
@@ -18,7 +24,7 @@ export const getCommits = async(types: Array<string>, excludeMessages: Array<str
     .map(commit => ({commit, message: parseCommitMessage(commit.commit.message, types, excludeMessages, breakingChangeNotes)}))
     .filter(item => item.message)
     .map(item => ({
-      sha: item.commit.sha,
+      sha: ensureNotNull(item.commit.sha),
       ...(item.message as ParentCommitMessage),
     }));
 
