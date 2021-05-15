@@ -1,8 +1,6 @@
 import { Context } from '@actions/github/lib/context';
 import { Octokit } from '@technote-space/github-action-helper/dist/types';
 import { ensureNotNull } from '@technote-space/github-action-helper/dist/utils';
-import { PaginateInterface } from '@octokit/plugin-paginate-rest';
-import { RestEndpointMethods } from '@octokit/plugin-rest-endpoint-methods/dist-types/generated/method-types';
 import { components } from '@octokit/openapi-types';
 import { parseCommitMessage } from './misc';
 import { Commit, ParentCommitMessage } from '../types';
@@ -10,8 +8,8 @@ import { MERGE_MESSAGE_PATTERN } from '../constant';
 
 type PullsListCommitsResponseData = components['schemas']['commit'];
 
-const listCommits = async(octokit: Octokit, context: Context): Promise<Array<PullsListCommitsResponseData>> => (octokit.paginate as PaginateInterface)(
-  (octokit as RestEndpointMethods).pulls.listCommits,
+const listCommits = async(octokit: Octokit, context: Context): Promise<Array<PullsListCommitsResponseData>> => (octokit.paginate)(
+  octokit.rest.pulls.listCommits,
   {
     ...context.repo,
     'pull_number': context.payload.number,
