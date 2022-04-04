@@ -37,7 +37,7 @@
     "update": "npm_config_yes=true npx npm-check-updates -u --timeout 100000 && yarn install && yarn upgrade && yarn audit"
   },
   "dependencies": {
-    "@actions/github": "^5.0.0",
+    "@actions/github": "^5.0.1",
     "@octokit/openapi-types": "^11.2.0",
     "@technote-space/github-action-helper": "^5.2.28",
     "@technote-space/github-action-log-helper": "^0.1.51"
@@ -49,8 +49,8 @@
     "@technote-space/github-action-test-helper": "^0.7.41",
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.23",
-    "@typescript-eslint/eslint-plugin": "^5.16.0",
-    "@typescript-eslint/parser": "^5.16.0",
+    "@typescript-eslint/eslint-plugin": "^5.17.0",
+    "@typescript-eslint/parser": "^5.17.0",
     "eslint": "^8.12.0",
     "husky": "^7.0.4",
     "jest": "^27.5.1",
