@@ -9,4 +9,5 @@ export default {
   plugins: [
     pluginTypescript(),
   ],
+  external: ['@technote-space/github-action-helper'],
 };
