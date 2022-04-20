@@ -1,4 +1,5 @@
 /* eslint-disable no-magic-numbers */
+import { describe, expect, it } from 'vitest';
 import { ApiHelper } from '@technote-space/github-action-helper';
 import { Logger } from '@technote-space/github-action-log-helper';
 import nock from 'nock';
@@ -12,7 +13,7 @@ import {
   stdoutCalledWith,
   getLogStdout,
 } from '@technote-space/github-action-test-helper';
-import { getCurrentVersion, whatBump, getNextVersionLevel, getNextVersion } from '../../src/utils/version';
+import { getCurrentVersion, whatBump, getNextVersionLevel, getNextVersion } from './version';
 
 const fixtureRootDir = resolve(__dirname, '..', 'fixtures');
 const octokit        = getOctokit();

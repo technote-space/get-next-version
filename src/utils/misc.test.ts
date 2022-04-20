@@ -1,4 +1,5 @@
-import { parseLine, parseCommitMessage } from '../../src/utils/misc';
+import { describe, expect, it } from 'vitest';
+import { parseLine, parseCommitMessage } from './misc';
 
 describe('parseLine', () => {
   it('should return empty', () => {
