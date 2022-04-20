@@ -1,5 +1,4 @@
 /* eslint-disable no-magic-numbers */
-import nock from 'nock';
 import { resolve } from 'path';
 import {
   generateContext,
@@ -7,7 +6,9 @@ import {
   getApiFixture,
   getOctokit,
 } from '@technote-space/github-action-test-helper';
-import { getCommits } from '../../src/utils/commit';
+import nock from 'nock';
+import { describe, expect, it } from 'vitest';
+import { getCommits } from './commit';
 
 const fixtureRootDir = resolve(__dirname, '..', 'fixtures');
 const octokit        = getOctokit();
