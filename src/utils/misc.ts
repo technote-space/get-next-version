@@ -10,8 +10,8 @@ export const parseLine = (message: string): ChildCommitMessage | undefined => {
   }
 
   return {
-    type: matches[1],
-    message: matches[3],
+    type: matches[1]!,
+    message: matches[3]!,
     normalized: `${matches[1]}: ${matches[3]}`,
     original: trim,
   };
@@ -24,7 +24,7 @@ export const isValidMessage = (type: string, message: string, types: Array<strin
 export const parseCommitMessage = (message: string, types: Array<string>, excludeMessages: Array<string>, breakingChangeNotes: Array<string>): ParentCommitMessage | undefined => {
   const normalizedExcludeMessages = normalize(excludeMessages);
   const messages                  = message.trim().split(/\r?\n|\r/);
-  const trim                      = messages[0].trim();
+  const trim                      = messages[0]!.trim();
   const matches                   = trim.match(SEMANTIC_MESSAGE_PATTERN);
   if (!matches) {
     return undefined;
@@ -45,7 +45,7 @@ export const parseCommitMessage = (message: string, types: Array<string>, exclud
       }
     });
 
-  if (!isValidMessage(matches[1], matches[3], types, normalizedExcludeMessages) && (!children.length && !notes.length)) {
+  if (!isValidMessage(matches[1]!, matches[3]!, types, normalizedExcludeMessages) && (!children.length && !notes.length)) {
     return undefined;
   }
 
