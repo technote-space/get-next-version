@@ -1,10 +1,10 @@
-import { Context } from '@actions/github/lib/context';
 import type { Types } from '@technote-space/github-action-helper';
-import { Utils } from '@technote-space/github-action-helper';
+import { Context } from '@actions/github/lib/context';
 import { components } from '@octokit/openapi-types';
-import { parseCommitMessage } from './misc';
-import { Commit, ParentCommitMessage } from '../types';
+import { Utils } from '@technote-space/github-action-helper';
 import { MERGE_MESSAGE_PATTERN } from '../constant';
+import { Commit, ParentCommitMessage } from '../types';
+import { parseCommitMessage } from './misc';
 
 type PullsListCommitsResponseData = components['schemas']['commit'];
 

@@ -1,9 +1,7 @@
 /* eslint-disable no-magic-numbers */
-import { describe, expect, it } from 'vitest';
+import { resolve } from 'path';
 import { ApiHelper } from '@technote-space/github-action-helper';
 import { Logger } from '@technote-space/github-action-log-helper';
-import nock from 'nock';
-import { resolve } from 'path';
 import {
   generateContext,
   disableNetConnect,
@@ -13,6 +11,8 @@ import {
   stdoutCalledWith,
   getLogStdout,
 } from '@technote-space/github-action-test-helper';
+import nock from 'nock';
+import { describe, expect, it } from 'vitest';
 import { getCurrentVersion, whatBump, getNextVersionLevel, getNextVersion } from './version';
 
 const fixtureRootDir = resolve(__dirname, '..', 'fixtures');
