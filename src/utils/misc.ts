@@ -1,6 +1,6 @@
-import { Logger } from '@technote-space/github-action-log-helper';
+import type { ParentCommitMessage, ChildCommitMessage } from '../types';
+import type { Logger } from '@technote-space/github-action-log-helper';
 import { SEMANTIC_MESSAGE_PATTERN } from '../constant';
-import { ParentCommitMessage, ChildCommitMessage } from '../types';
 
 export const parseLine = (message: string): ChildCommitMessage | undefined => {
   const trim    = message.trim();
