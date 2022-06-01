@@ -1,6 +1,6 @@
-import type { ParentCommitMessage, ChildCommitMessage } from '../types';
+import type { ParentCommitMessage, ChildCommitMessage } from '../types.js';
 import type { Logger } from '@technote-space/github-action-log-helper';
-import { SEMANTIC_MESSAGE_PATTERN } from '../constant';
+import { SEMANTIC_MESSAGE_PATTERN } from '../constant.js';
 
 export const parseLine = (message: string): ChildCommitMessage | undefined => {
   const trim    = message.trim();

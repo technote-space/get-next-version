@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parseLine, parseCommitMessage } from './misc';
+import { parseLine, parseCommitMessage } from './misc.js';
 
 describe('parseLine', () => {
   it('should return empty', () => {
