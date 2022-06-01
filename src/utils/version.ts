@@ -1,6 +1,6 @@
 import type { Commit } from '../types.js';
 import type { Context } from '@actions/github/lib/context.js';
-import type { ApiHelper, Types } from '@technote-space/github-action-helper';
+import type { ApiHelper, Octokit } from '@technote-space/github-action-helper';
 import type { Logger } from '@technote-space/github-action-log-helper';
 import { Utils } from '@technote-space/github-action-helper';
 import { VERSION_BUMP } from '../constant.js';
@@ -23,7 +23,7 @@ export const whatBump = (minorUpdateCommitTypes: Array<string>, commits: Array<P
 
 export const getNextVersionLevel = (minorUpdateCommitTypes: Array<string>, commits: Array<Pick<Commit, 'notes' | 'type'>>): number => VERSION_BUMP[whatBump(minorUpdateCommitTypes, commits)];
 
-export const getNextVersion = async(minorUpdateCommitTypes: Array<string>, excludeMessages: Array<string>, breakingChangeNotes: Array<string>, helper: ApiHelper, octokit: Types.Octokit, context: Context, logger?: Logger): Promise<string> => {
+export const getNextVersion = async(minorUpdateCommitTypes: Array<string>, excludeMessages: Array<string>, breakingChangeNotes: Array<string>, helper: ApiHelper, octokit: Octokit, context: Context, logger?: Logger): Promise<string> => {
   const commits = await getCommits(minorUpdateCommitTypes, excludeMessages, breakingChangeNotes, octokit, context);
   log(logger => logger.startProcess('Target commits:'), logger);
   log(() => console.log(
