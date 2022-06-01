@@ -8,7 +8,7 @@ import {
 } from '@technote-space/github-action-test-helper';
 import nock from 'nock';
 import { describe, expect, it } from 'vitest';
-import { getCommits } from './commit';
+import { getCommits } from './commit.js';
 
 const fixtureRootDir = resolve(__dirname, '..', 'fixtures');
 const octokit        = getOctokit();

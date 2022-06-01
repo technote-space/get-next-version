@@ -1,11 +1,11 @@
-import type { Commit } from '../types';
-import type { Context } from '@actions/github/lib/context';
+import type { Commit } from '../types.js';
+import type { Context } from '@actions/github/lib/context.js';
 import type { ApiHelper, Types } from '@technote-space/github-action-helper';
 import type { Logger } from '@technote-space/github-action-log-helper';
 import { Utils } from '@technote-space/github-action-helper';
-import { VERSION_BUMP } from '../constant';
-import { getCommits } from './commit';
-import { log } from './misc';
+import { VERSION_BUMP } from '../constant.js';
+import { getCommits } from './commit.js';
+import { log } from './misc.js';
 
 export const getCurrentVersion = async(helper: ApiHelper): Promise<string> => helper.getLastTag();
 

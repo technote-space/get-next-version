@@ -13,7 +13,7 @@ import {
 } from '@technote-space/github-action-test-helper';
 import nock from 'nock';
 import { describe, expect, it } from 'vitest';
-import { getCurrentVersion, whatBump, getNextVersionLevel, getNextVersion } from './version';
+import { getCurrentVersion, whatBump, getNextVersionLevel, getNextVersion } from './version.js';
 
 const fixtureRootDir = resolve(__dirname, '..', 'fixtures');
 const octokit        = getOctokit();
