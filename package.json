@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/github-action-version-helper",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "description": "Version helper for GitHub Actions.",
   "keywords": [
     "github",
@@ -43,31 +43,31 @@
     "update": "npm_config_yes=true npx npm-check-updates -u --timeout 100000 && yarn install && yarn upgrade && yarn audit"
   },
   "dependencies": {
-    "@actions/github": "^5.0.3",
-    "@octokit/openapi-types": "^12.4.0",
-    "@technote-space/github-action-helper": "^5.3.7",
-    "@technote-space/github-action-log-helper": "^0.2.6"
+    "@actions/github": "^5.1.1",
+    "@octokit/openapi-types": "^14.0.0",
+    "@technote-space/github-action-helper": "^5.3.9",
+    "@technote-space/github-action-log-helper": "^0.2.8"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.2",
-    "@commitlint/config-conventional": "^17.0.2",
-    "@octokit/types": "^6.37.0",
-    "@rollup/plugin-typescript": "^8.3.3",
+    "@commitlint/cli": "^17.2.0",
+    "@commitlint/config-conventional": "^17.2.0",
+    "@octokit/types": "^8.0.0",
+    "@rollup/plugin-typescript": "^9.0.2",
     "@sindresorhus/tsconfig": "^3.0.1",
-    "@technote-space/github-action-test-helper": "^0.9.8",
-    "@types/node": "^18.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.29.0",
-    "@typescript-eslint/parser": "^5.29.0",
-    "c8": "^7.11.3",
-    "eslint": "^8.18.0",
+    "@technote-space/github-action-test-helper": "^0.11.0",
+    "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "@vitest/coverage-c8": "^0.24.5",
+    "eslint": "^8.26.0",
     "eslint-plugin-import": "^2.26.0",
     "husky": "^8.0.1",
-    "lint-staged": "^13.0.2",
-    "nock": "^13.2.7",
+    "lint-staged": "^13.0.3",
+    "nock": "^13.2.9",
     "pinst": "^3.0.0",
-    "rollup": "^2.75.7",
-    "typescript": "^4.7.4",
-    "vitest": "^0.15.2"
+    "rollup": "^3.2.5",
+    "typescript": "^4.8.4",
+    "vitest": "^0.24.5"
   },
   "publishConfig": {
     "access": "public"
