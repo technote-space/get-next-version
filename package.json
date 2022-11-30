@@ -45,19 +45,19 @@
   "dependencies": {
     "@actions/github": "^5.1.1",
     "@octokit/openapi-types": "^14.0.0",
-    "@technote-space/github-action-helper": "^5.3.9",
-    "@technote-space/github-action-log-helper": "^0.2.8"
+    "@technote-space/github-action-helper": "^5.3.10",
+    "@technote-space/github-action-log-helper": "^0.2.9"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
     "@octokit/types": "^8.0.0",
-    "@rollup/plugin-typescript": "^10.0.0",
+    "@rollup/plugin-typescript": "^10.0.1",
     "@sindresorhus/tsconfig": "^3.0.1",
-    "@technote-space/github-action-test-helper": "^0.11.0",
+    "@technote-space/github-action-test-helper": "^0.11.1",
     "@types/node": "^18.11.9",
-    "@typescript-eslint/eslint-plugin": "^5.44.0",
-    "@typescript-eslint/parser": "^5.44.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
     "@vitest/coverage-c8": "^0.25.3",
     "eslint": "^8.28.0",
     "eslint-plugin-import": "^2.26.0",
